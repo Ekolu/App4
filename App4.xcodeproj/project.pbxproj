@@ -14,6 +14,7 @@
 		B9D716801C7C78AB00E56722 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9D7167E1C7C78AB00E56722 /* LaunchScreen.storyboard */; };
 		B9D7168B1C7C78AB00E56722 /* App4Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D7168A1C7C78AB00E56722 /* App4Tests.swift */; };
 		B9D716961C7C78AB00E56722 /* App4UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D716951C7C78AB00E56722 /* App4UITests.swift */; };
+		B9D716A41C7C8DE300E56722 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D716A31C7C8DE300E56722 /* CustomCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		B9D716911C7C78AB00E56722 /* App4UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = App4UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9D716951C7C78AB00E56722 /* App4UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App4UITests.swift; sourceTree = "<group>"; };
 		B9D716971C7C78AB00E56722 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B9D716A31C7C8DE300E56722 /* CustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 			children = (
 				B9D716751C7C78AB00E56722 /* AppDelegate.swift */,
 				B9D716771C7C78AB00E56722 /* ViewController.swift */,
+				B9D716A31C7C8DE300E56722 /* CustomCell.swift */,
 				B9D716791C7C78AB00E56722 /* Main.storyboard */,
 				B9D7167C1C7C78AB00E56722 /* Assets.xcassets */,
 				B9D7167E1C7C78AB00E56722 /* LaunchScreen.storyboard */,
@@ -257,6 +260,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B9D716781C7C78AB00E56722 /* ViewController.swift in Sources */,
+				B9D716A41C7C8DE300E56722 /* CustomCell.swift in Sources */,
 				B9D716761C7C78AB00E56722 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -484,6 +488,7 @@
 				B9D7169C1C7C78AB00E56722 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B9D7169D1C7C78AB00E56722 /* Build configuration list for PBXNativeTarget "App4Tests" */ = {
 			isa = XCConfigurationList;
@@ -492,6 +497,7 @@
 				B9D7169F1C7C78AB00E56722 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B9D716A01C7C78AB00E56722 /* Build configuration list for PBXNativeTarget "App4UITests" */ = {
 			isa = XCConfigurationList;
@@ -500,6 +506,7 @@
 				B9D716A21C7C78AB00E56722 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

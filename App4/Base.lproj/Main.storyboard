@@ -59,14 +59,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mWg-9f-Snz">
-                                                    <rect key="frame" x="0.0" y="0.0" width="560" height="43"/>
+                                                    <rect key="frame" x="8" y="0.0" width="552" height="43"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="mWg-9f-Snz" firstAttribute="leading" secondItem="hTg-md-G7Z" secondAttribute="leading" id="a8u-aa-Old"/>
+                                                <constraint firstItem="mWg-9f-Snz" firstAttribute="leading" secondItem="hTg-md-G7Z" secondAttribute="leading" constant="8" id="a8u-aa-Old"/>
                                                 <constraint firstAttribute="trailing" secondItem="mWg-9f-Snz" secondAttribute="trailing" id="aZi-xQ-TE0"/>
                                                 <constraint firstItem="mWg-9f-Snz" firstAttribute="top" secondItem="hTg-md-G7Z" secondAttribute="top" id="nPX-aE-wxJ"/>
                                                 <constraint firstAttribute="bottom" secondItem="mWg-9f-Snz" secondAttribute="bottom" id="nRp-5d-shn"/>
@@ -111,6 +111,7 @@
                     <connections>
                         <outlet property="inputButton" destination="B8e-I2-eKN" id="3Hd-Hj-imj"/>
                         <outlet property="tableView" destination="NDb-8k-ESh" id="ORW-q1-lDU"/>
+                        <outlet property="textFieldConstraint" destination="80R-oB-8y1" id="4fd-9x-uMR"/>
                         <outlet property="textFieldInput" destination="gRa-ot-dwC" id="v6i-uU-k0h"/>
                     </connections>
                 </viewController>

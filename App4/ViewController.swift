@@ -16,12 +16,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         inputButton.enabled = false
         self.tableView.estimatedRowHeight = 43
         self.tableView.rowHeight = UITableViewAutomaticDimension
-        //Only read from memory if it is not empty
-        if userInput.isEmpty{
-            ReadFromMemory()
-        }
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+        ReadFromMemory()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardShown:"), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardHidden:"), name: UIKeyboardWillHideNotification, object: nil)
 
     }
     
@@ -37,6 +34,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     @IBOutlet weak var inputButton: UIButton!
     
+    @IBOutlet weak var textFieldConstraint: NSLayoutConstraint!
+
     
     // Declaring variables.
     var userInput = [String]()
@@ -53,10 +52,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         inputButton.enabled = false
         self.tableView.reloadData()
         WriteToMemory()
+        self.view.endEditing(true)
     }
     
     
-    // Validating user input.
+    // Validates user input.
     @IBAction func Validation(sender: UITextField) {
         if (textFieldInput.text!.isEmpty)
         {
@@ -69,27 +69,37 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     }
 
-    //Figuring out the number of rows.
+    // Figures out the number of rows.
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return userInput.count
     }
     
-    // Raises the textfield height when keyboard appears so it would stay visible.
-    func keyboardWillShow(notification: NSNotification) {
-        
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
-            self.view.frame.origin.y -= keyboardSize.height
-        }
-        
+    // Raises the height of the textfield when keyboard appears.
+    func keyboardShown(notification:NSNotification) {
+        adjustingHeight(true, notification: notification)
     }
     
-    // Lowers the textfield height when keyboard is hidden.
-    func keyboardWillHide(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
-            self.view.frame.origin.y += keyboardSize.height
-        }
+    // Lowers the height of the textfield when keyboard is hidden.
+    func keyboardHidden(notification:NSNotification) {
+        adjustingHeight(false, notification: notification)
     }
-
+    
+    // Adjusts the height of textfield when keyboard is on/off.
+    func adjustingHeight(show:Bool, notification:NSNotification) {
+        var userInfo = notification.userInfo!
+        let keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).CGRectValue()
+        let animationDurarion = userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSTimeInterval
+        let changeInHeight = (CGRectGetHeight(keyboardFrame) + 8) * (show ? 1 : -1)
+        UIView.animateWithDuration(animationDurarion, animations: { () -> Void in
+            self.textFieldConstraint.constant += changeInHeight
+        })
+    }
+    
+    // Close keyboard when an empty area on screen is touched.
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     // Creates cells.
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
@@ -98,8 +108,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         cell.myTextView.text = userInput[indexPath.row]
         
-        //Disables scrolling, so that textview would expand if there is a lot of input instead of allowing scrolling.
+        // Disables scrolling, so that textview would expand if there is a lot of input instead of allowing scrolling.
         cell.myTextView.scrollEnabled = false
+        // Disables textView editing.
+        cell.myTextView.editable = false;
         
         return cell
     }
@@ -118,7 +130,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func WriteToMemory() {
         if let directory: String = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
         
-        let path: String = directory + "todo.txt"
+        let path: String = directory + "/App4.txt"
             
         userInputString = userInput.joinWithSeparator("-")
         
@@ -127,7 +139,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             try userInputString.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding)
         }
         catch {
-            print("Error")// Error handling here.
+            print(path)
+            print("Error1")// Error handling here.
         }
         }
     }
@@ -136,17 +149,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func ReadFromMemory() {
         if let directory: String = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
             
-            let path: String = directory + "todo.txt"
+            let path: String = directory + "/App4.txt"
         // Reading.
         do {
             savedInputString = try String(contentsOfFile: path, encoding: NSUTF8StringEncoding)
             userInput = savedInputString.characters.split{$0 == "-" || $0 == "\r\n"}.map(String.init)
             
         } catch {
-            print("Error")// Error handling here.
+            print(path)
+            print("Error2")// Error handling here.
             }
         } else {
-        print("Error")// Error handling here.
+        print("Error3")// Error handling here.
         }
     }
 }

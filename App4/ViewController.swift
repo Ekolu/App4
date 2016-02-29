@@ -36,8 +36,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var userInputString: String!
     var savedInputString: String!
     
-    
-    
     // On button click puts user input into an array and saves it to memory.
     @IBAction func AddInput(sender: AnyObject) {
         userInput.append(textFieldInput.text!)
@@ -47,7 +45,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         WriteToMemory()
         self.view.endEditing(true)
     }
-    
     
     // Validates user input.
     @IBAction func Validation(sender: UITextField) {

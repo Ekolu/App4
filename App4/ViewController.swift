@@ -31,7 +31,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var inputButton: UIButton!
     @IBOutlet weak var textFieldConstraint: NSLayoutConstraint!
 
-    
     // Declaring variables.
     var userInput = [String]()
     var userInputString: String!

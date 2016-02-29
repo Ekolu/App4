@@ -95,9 +95,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         })
     }
     
-    // Close keyboard when an empty area on screen is touched.
+    // Closes keyboard when an empty area on screen is touched.
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.view.endEditing(true)
+    }
+    
+    // Corrects for keyboard bug, when keyboard and textfield fail to adjust when rotated.
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator){
+        if UIDevice.currentDevice().orientation.isLandscape.boolValue && textFieldInput.isFirstResponder(){
+            self.textFieldInput.resignFirstResponder()
+            self.tableView.reloadData()
+        }
+        else if UIDevice.currentDevice().orientation.isPortrait.boolValue && textFieldInput.isFirstResponder(){
+            self.textFieldInput.resignFirstResponder()
+            self.tableView.reloadData()
+        }
     }
     
     // Creates cells.
@@ -139,7 +151,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             try userInputString.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding)
         }
         catch {
-            print(path)
             print("Error1")// Error handling here.
         }
         }
@@ -156,7 +167,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             userInput = savedInputString.characters.split{$0 == "-" || $0 == "\r\n"}.map(String.init)
             
         } catch {
-            print(path)
             print("Error2")// Error handling here.
             }
         } else {
